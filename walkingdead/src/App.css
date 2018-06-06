@@ -8,21 +8,41 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: red;
+  height: 40px;
   padding: 20px;
   color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 2rem;
 }
 
 .App-intro {
-  font-size: large;
+  font-size: 2rem;
+  position: relative;
+  text-align: center;
+  padding-left: auto;
+  margin-right: auto;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  background-image: url("./gif/blood.jpg");
+  background-size: cover;
+}
+
+.giphy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
