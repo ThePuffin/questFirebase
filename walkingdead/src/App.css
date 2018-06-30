@@ -1,3 +1,7 @@
+*{
+  z-index: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -38,11 +42,15 @@
 body {
   background-image: url("./gif/blood.jpg");
   background-size: cover;
+
 }
 
 .giphy {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+z-index: 2;
+}
+
+.textInscription{
+  font-weight: bolder;
+color: black;
+font-size: 55%;
 }
