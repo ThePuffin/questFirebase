@@ -20,6 +20,9 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import firebase from "firebase";
 
+//import snackbar
+import Snackbar from "@material-ui/core/Snackbar";
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -32,7 +35,8 @@ class Connexion extends Component {
     this.state = {
       email: "",
       password: "",
-      showPasswordOne: false
+      showPasswordOne: false,
+      open: false
     };
 
     //définition des regex
@@ -52,6 +56,7 @@ class Connexion extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
     this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   login(e) {
@@ -61,7 +66,7 @@ class Connexion extends Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(u => {})
       .catch(error => {
-        alert("nope!!!");
+        this.setState({ open: true });
       });
   }
 
@@ -90,7 +95,9 @@ class Connexion extends Component {
     event.preventDefault();
   };
 
-
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     return (
@@ -211,6 +218,14 @@ class Connexion extends Component {
             </Button>
           </div>
         </form>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={this.state.open}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{ "aria-describedby": "message-id" }}
+          message={<span id="message-id">Wrong information ! Do you sign in before?</span>}
+        />
       </div>
     );
   }
