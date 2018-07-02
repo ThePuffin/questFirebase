@@ -19,7 +19,7 @@ import LockOutline from "@material-ui/icons/LockOutline";
 // //import pour la visibilité password
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import configuration from "../configuration";
+import {configuration} from "../configuration";
 
 const styles = theme => ({
   root: {

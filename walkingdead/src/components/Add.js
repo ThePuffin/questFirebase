@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, InputLabel, FormControl, Input } from "@material-ui/core";
+import { base } from "../configuration";
 
 class Add extends Component {
   constructor(props) {
@@ -20,12 +21,22 @@ class Add extends Component {
     this.setState({ [idChange]: e.target.value, access: this.props.user });
   };
 
-  onSubmit = e =>{
-      e.preventDefault();
-      console.log("object");
-      this.props.createOff();
+  onSubmit = e => {
+    e.preventDefault();
+    const {name, img, access } = this.state;
+    //on ajoute le personnage à la liste
+    base.push(`Perso`, {
+      data: {
+        name,
+        img,
+        access
+      }
+    });
+    
 
-  }
+    //on fait disparaitre le composant
+    this.props.createOff();
+  };
 
   render() {
     //   console.log("state:", this.state);

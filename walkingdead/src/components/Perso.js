@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 //import config firebase
-import configuration from "../configuration";
+import { configuration } from "../configuration";
 
 //import card
 import Card from "@material-ui/core/Card";
@@ -18,11 +18,12 @@ class Perso extends Component {
     this.state = {
       create: false,
       arrPerso: [],
-      user: this.props.user.email
+      user: ""
     };
     this.logout = this.logout.bind(this);
     this.createOff = this.createOff.bind(this);
     this.create = this.create.bind(this);
+    this.recharger = this.recharger.bind(this);
   }
 
   create(e) {
@@ -31,34 +32,50 @@ class Perso extends Component {
 
     this.setState({ create: !this.state.create });
   }
+
   logout(e) {
     configuration.auth().signOut();
   }
 
   createOff() {
-    this.setState({create:false})
+    this.setState({ create: false });
+    this.recharger();
   }
 
-  
-
   componentWillMount() {
-    
+    this.recharger();
+    // const persoRef = configuration.database().ref("/");
+
+    // persoRef.on("value", snapshot => {
+    //   // console.log(snapshot.val());
+
+    //   this.setState({
+    //     arrPerso: snapshot.val().Perso
+    //   });
+    // });
+  }
+
+  recharger() {
+    // console.log("rechargement données");
     const persoRef = configuration.database().ref("/");
 
     persoRef.on("value", snapshot => {
-      console.log(snapshot.val());
+      let persos = snapshot.val().Perso
+      // console.log("new data", snapshot.val());
+      let persoKeys = Object.values(persos)
+      // console.log(persoKeys);
       this.setState({
-        arrPerso: snapshot.val().Perso
+        arrPerso: persoKeys
       });
     });
   }
-
   render() {
-    
-    // console.log("user mail:", this.props.user.email);
+
+    // console.log("arrPerso:", this.state.arrPerso);
+    console.log("user mail:", this.state.email);
     // console.log(this.state.arrPerso);
-    return (
-      <div>
+    // console.log(this.state.arrPerso.length);
+    return <div>
         <Button variant="contained" color="primary" onClick={this.logout}>
           Log out
         </Button>
@@ -66,14 +83,10 @@ class Perso extends Component {
           Create a new character
         </Button>
         {this.state.create === false ? null : <Add createOff={this.createOff} user={this.props.user.email} />}
-        {this.state.arrPerso.length > 0 ? (
-          this.state.arrPerso
+        {this.state.arrPerso.length > 0 && this.props.user.email !== null ? this.state.arrPerso
             .filter(
-              elt =>
-                (elt.access = "all" || elt.access === this.props.user.email)
-            )
-            .map(elt => (
-              <Card>
+        elt => elt.access === "all" ||elt.access === this.props.user.email)
+            .map(elt => <Card>
                 <CardMedia img="">
                   <img alt="walking" src={elt.img} />
                 </CardMedia>
@@ -82,19 +95,11 @@ class Perso extends Component {
                     {elt.name}
                   </Typography>
                 </CardContent>
-              </Card>
-            ))
-        ) : (
-          <div>
+              </Card>) : <div>
             <p>chargement en cours</p>
-            <img
-              src="https://media.giphy.com/media/CTkk4VzNdmZMI/giphy.gif"
-              alt="loader"
-            />
-          </div>
-        )}
-      </div>
-    );
+            <img src="https://media.giphy.com/media/CTkk4VzNdmZMI/giphy.gif" alt="loader" />
+          </div>}
+      </div>;
   }
 }
 

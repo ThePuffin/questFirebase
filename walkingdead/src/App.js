@@ -6,7 +6,7 @@ import Intro from "./components/Intro";
 import Perso from "./components/Perso";
 import Connexion from "./components/Connexion";
 
-import config from "./configuration";
+import {configuration} from "./configuration";
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   authListener() {
-    config.auth().onAuthStateChanged(user => {
+    configuration.auth().onAuthStateChanged(user => {
       // console.log(user);
       if (user) {
         this.setState({ user });

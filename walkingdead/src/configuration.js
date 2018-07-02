@@ -1,4 +1,6 @@
 import firebase from "firebase";
+import Rebase from "re-base";
+
 
 // Initialize Firebase
 let config = {
@@ -12,4 +14,5 @@ let config = {
 
 // initialise le module firebase avec votre base de données Firebase
 const configuration = firebase.initializeApp(config);
-export default configuration;
+const base = Rebase.createClass(configuration.database());
+export {configuration, base};
