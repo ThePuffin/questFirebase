@@ -102,22 +102,6 @@ class Inscription extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // const { history } = this.props;
-    // const {
-    //   password,
-
-    //   name
-    // } = this.state;
-    // auth
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(authUser => console.log(authUser));
-    // base.push(`users`, {
-    //   data: {
-    //     email,
-
-    //   }
-    // });
-    // history.push("/");
   };
 
   render() {
