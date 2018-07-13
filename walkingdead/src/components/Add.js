@@ -9,7 +9,7 @@ class Add extends Component {
     this.state = {
       name: "",
       img: "",
-      access: "all"
+      access: this.props.user
     };
     this.onChange = this.onChange.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
@@ -40,7 +40,6 @@ class Add extends Component {
   };
 
   handleSwitch() {
-    console.log(this.state.access);
     this.state.access === "all"
       ? this.setState({ access: this.props.user })
       : this.setState({ access: "all" });

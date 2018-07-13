@@ -28,8 +28,6 @@ class Perso extends Component {
 
   create(e) {
     e.preventDefault();
-    console.log("utilisateur :", this.state.user);
-
     this.setState({ create: !this.state.create });
   }
 
