@@ -28,8 +28,6 @@ class Perso extends Component {
 
   create(e) {
     e.preventDefault();
-    console.log("utilisateur :", this.state.user);
-
     this.setState({ create: !this.state.create });
   }
 
@@ -44,15 +42,6 @@ class Perso extends Component {
 
   componentWillMount() {
     this.recharger();
-    // const persoRef = configuration.database().ref("/");
-
-    // persoRef.on("value", snapshot => {
-    //   // console.log(snapshot.val());
-
-    //   this.setState({
-    //     arrPerso: snapshot.val().Perso
-    //   });
-    // });
   }
 
   recharger() {
@@ -60,9 +49,9 @@ class Perso extends Component {
     const persoRef = configuration.database().ref("/");
 
     persoRef.on("value", snapshot => {
-      let persos = snapshot.val().Perso
+      let persos = snapshot.val().Perso;
       // console.log("new data", snapshot.val());
-      let persoKeys = Object.values(persos)
+      let persoKeys = Object.values(persos);
       // console.log(persoKeys);
       this.setState({
         arrPerso: persoKeys
@@ -70,23 +59,27 @@ class Perso extends Component {
     });
   }
   render() {
+  //  console.log(this.props.user.email);
 
-    // console.log("arrPerso:", this.state.arrPerso);
-    console.log("user mail:", this.state.email);
-    // console.log(this.state.arrPerso);
-    // console.log(this.state.arrPerso.length);
-    return <div>
+    return (
+      <div>
         <Button variant="contained" color="primary" onClick={this.logout}>
           Log out
         </Button>
         <Button variant="contained" color="secondary" onClick={this.create}>
           Create a new character
         </Button>
-        {this.state.create === false ? null : <Add createOff={this.createOff} user={this.props.user.email} />}
-        {this.state.arrPerso.length > 0 && this.props.user.email !== null ? this.state.arrPerso
+        {this.state.create === false ? null : (
+          <Add createOff={this.createOff} user={this.props.user.email} />
+        )}
+        {this.state.arrPerso.length > 0 && this.props.user.email !== null ? (
+          this.state.arrPerso
             .filter(
-        elt => elt.access === "all" ||elt.access === this.props.user.email)
-            .map(elt => <Card>
+              elt =>
+                elt.access === "all" || elt.access === this.props.user.email
+            )
+            .map(elt => (
+              <Card>
                 <CardMedia img="">
                   <img alt="walking" src={elt.img} />
                 </CardMedia>
@@ -95,11 +88,19 @@ class Perso extends Component {
                     {elt.name}
                   </Typography>
                 </CardContent>
-              </Card>) : <div>
-            <p>chargement en cours</p>
-            <img src="https://media.giphy.com/media/CTkk4VzNdmZMI/giphy.gif" alt="loader" />
-          </div>}
-      </div>;
+              </Card>
+            ))
+        ) : (
+          <div>
+            <p>Loading in progress...</p>
+            <img
+              src="https://media.giphy.com/media/CTkk4VzNdmZMI/giphy.gif"
+              alt="loader"
+            />
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
