@@ -9,7 +9,6 @@ class Add extends Component {
     this.state = {
       name: "",
       img: "",
-      open: false,
       access: this.props.user
     };
     this.regexes = {
@@ -19,7 +18,7 @@ class Add extends Component {
 
     this.hidden = {
       name: true,
-      img: true
+      img: true,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -122,7 +121,7 @@ class Add extends Component {
               fontWeight: "bolder",
               backgroundColor: "rgba(255,255,255,0.4)"
             }}
-            error={this.state.img}
+            error={!this.hidden.img}
             id="img"
             type="text"
             onChange={this.onChange}
