@@ -2,9 +2,6 @@ import React, { Component } from "react";
 
 //import config firebase
 import { configuration } from "../configuration";
-
-//import card
-import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
@@ -47,14 +44,11 @@ class Perso extends Component {
   }
 
   recharger() {
-    // console.log("rechargement données");
     const persoRef = configuration.database().ref("/");
 
     persoRef.on("value", snapshot => {
       let persos = snapshot.val().Perso;
-      // console.log("new data", snapshot.val());
       let persoKeys = Object.values(persos);
-      // console.log(persoKeys);
       this.setState({
         arrPerso: persoKeys
       });
@@ -90,7 +84,7 @@ class Perso extends Component {
                   elt.access === "all" || elt.access === this.props.user.email
               )
               .map(elt => (
-                <Grid item style={{ textAlign: "center" }} spacing={16} xs={6}>
+                <Grid item style={{ textAlign: "center" }} spacing={16} sm={6} xs={12}>
                   <Paper>
                     <p style={{ padding: 1 }}> </p>
                     <CardMedia
