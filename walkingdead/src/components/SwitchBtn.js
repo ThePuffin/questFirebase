@@ -16,16 +16,11 @@ class SwitchBtn extends Component {
     this.props.handleSwitch();
   };
   render() {
-    return (
-      <div>
-        <FormGroup>
-          <FormControlLabel
-            control={<Switch onClick={this.handleChange} />}
-            label={this.state.visibility===false?"For everyone":"Just for me"}
-          />
+    return <div>
+        <FormGroup style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 25 }}>
+          <FormControlLabel control={<Switch onClick={this.handleChange} />} label={this.state.visibility === false ? "For everyone" : "Just for me"} />
         </FormGroup>
-      </div>
-    );
+      </div>;
   }
 }
 

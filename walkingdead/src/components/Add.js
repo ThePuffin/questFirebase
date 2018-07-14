@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { Button, InputLabel, FormControl, Input, FormHelperText } from "@material-ui/core";
+import {
+  Button,
+  InputLabel,
+  FormControl,
+  Input,
+  FormHelperText
+} from "@material-ui/core";
 import { base } from "../configuration";
 import SwitchBtn from "./SwitchBtn";
+import Grid from "@material-ui/core/Grid";
 
 class Add extends Component {
   constructor(props) {
@@ -18,7 +25,7 @@ class Add extends Component {
 
     this.hidden = {
       name: true,
-      img: true,
+      img: true
     };
 
     this.onChange = this.onChange.bind(this);
@@ -61,98 +68,46 @@ class Add extends Component {
   }
 
   render() {
-    return (
-      <div style={{ padding: 20 }}>
-      
-        <FormControl fullWidth>
-          <InputLabel
-            style={{
-              color: "black",
-              fontSize: "20",
-              fontWeight: "bolder",
-              backgroundColor: "rgba(255,255,255,0.4)"
-            }}
-            className="textInscription"
-          >
-            Name
-          </InputLabel>
-          <Input
-            style={{
-              color: "black",
-              fontSize: "20",
-              fontWeight: "bolder",
-              backgroundColor: "rgba(255,255,255,0.4)"
-            }}
-            error={!this.hidden.name}
-            id="name"
-            onChange={this.onChange}
-            value={this.state.name}
-          />
-          <FormHelperText
-            style={{
-              color: "black",
-              fontSize: "20",
-              fontWeight: "bolder",
-              backgroundColor: "rgba(255,255,255,0.4)"
-            }}
-            hidden={this.hidden.name}
-            id="nom-error-text"
-          >
-            Too short.
-              </FormHelperText>
-        </FormControl>
+    return <Grid container spacing={16} style={{ padding: 20, textAlign: "center" }} xs={12}>
+        <Grid item xs={5}>
+          <FormControl fullWidth>
+            <InputLabel style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)" }} className="textInscription">
+              Name
+            </InputLabel>
+            <Input style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)" }} error={!this.hidden.name} id="name" onChange={this.onChange} value={this.state.name} />
+            <FormHelperText style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)" }} hidden={this.hidden.name} id="nom-error-text">
+              Too short.
+            </FormHelperText>
+          </FormControl>
+        </Grid>
 
-
-        <FormControl fullWidth>
-          <InputLabel
-            style={{
-              color: "black",
-              fontSize: "20",
-              fontWeight: "bolder",
-              backgroundColor: "rgba(255,255,255,0.4)"
-            }}
-            htmlFor="inputInscriptionPassword"
-          >
-            Image link
-          </InputLabel>
-          <Input
-            style={{
-              color: "black",
-              fontSize: "20",
-              fontWeight: "bolder",
-              backgroundColor: "rgba(255,255,255,0.4)"
-            }}
-            error={!this.hidden.img}
-            id="img"
-            type="text"
-            onChange={this.onChange}
-            value={this.state.img}
-          />
-          <FormHelperText
-            style={{
-              color: "black",
-              fontSize: "20",
-              fontWeight: "bolder",
-              backgroundColor: "rgba(255,255,255,0.4)"
-            }}
-            hidden={this.hidden.img}
-            id="nom-error-text"
-          >
-            Wrong link.
-              </FormHelperText>
-        </FormControl>
+      <Grid item xs={2}>
+      <FormControl>
         <SwitchBtn handleSwitch={this.handleSwitch} />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          margin="normal"
-          onClick={this.onSubmit}
-        >
-          Add
-        </Button>
-      </div>
-    );
+      </FormControl>
+      </Grid>
+
+        <Grid item xs={5}>
+          <FormControl fullWidth>
+            <InputLabel style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)" }} htmlFor="inputInscriptionPassword">
+              Image link
+            </InputLabel>
+            <Input style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)" }} error={!this.hidden.img} id="img" type="text" onChange={this.onChange} value={this.state.img} />
+            <FormHelperText style={{ color: "black", fontSize: "20", fontWeight: "bolder", backgroundColor: "rgba(255,255,255,0.4)" }} hidden={this.hidden.img} id="nom-error-text">
+              Wrong link.
+            </FormHelperText>
+          </FormControl>
+        </Grid>
+        
+        
+        <Grid item style={{ padding: 20, textAlign: "center" }} xs={12}>
+      
+            <Button type="submit" variant="contained" color="primary" margin="normal" onClick={this.onSubmit}>
+              Add
+            </Button>
+        
+        </Grid>
+      </Grid>;
   }
 }
 

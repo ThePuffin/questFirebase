@@ -63,55 +63,70 @@ class Perso extends Component {
   render() {
     //  console.log(this.props.user.email);
 
-    return <div style={{ padding: 20 }}>
-      <Grid style={{ padding: 40 }}>
-        <Button variant="contained" color="primary" onClick={this.logout}>
-          Log out
-        </Button>
-        <Button variant="contained" color="secondary" onClick={this.create}>
-          Create a new character
-        </Button>
-    </Grid>
+    return (
+      <div style={{ padding: 20 }}>
+        <Grid style={{ padding: 40 }}>
+        {this.state.create===true?  <Button variant="contained" color="secondary" onClick={this.create}>
+            Close
+          </Button>:
+          <Button variant="contained" color="secondary" onClick={this.create}>
+            Create a new character
+          </Button>
+        }
+        </Grid>
 
-      {this.state.create === false ? null : <Grid container style={{textAlign: "center"}}> <Add createOff={this.createOff} user={this.props.user.email} /></Grid>}
+        {this.state.create === false ? null : (
+          <Grid container style={{ textAlign: "center" }}>
+            {" "}
+            <Add createOff={this.createOff} user={this.props.user.email} />
+          </Grid>
+        )}
 
-              <Grid container spacing={24}>
-        {this.state.arrPerso.length > 0 && this.props.user.email !== null ? this.state.arrPerso
-            .filter(
-              elt =>
-                elt.access === "all" || elt.access === this.props.user.email
-            )
-            .map(elt => (
-                <Grid
-                  item
-                  style={{ textAlign: "center" }}
-                  spacing={16}
-                  xs={6}
-                >
+        <Grid container spacing={24}>
+          {this.state.arrPerso.length > 0 && this.props.user.email !== null ? (
+            this.state.arrPerso
+              .filter(
+                elt =>
+                  elt.access === "all" || elt.access === this.props.user.email
+              )
+              .map(elt => (
+                <Grid item style={{ textAlign: "center" }} spacing={16} xs={6}>
                   <Paper>
-                  <p style={{padding:1}}> </p>
-                  <CardMedia style={{ width: "auto", height:'50vh' }}  title="walking" image={elt.img}/>
+                    <p style={{ padding: 1 }}> </p>
+                    <CardMedia
+                      style={{ width: "auto", height: "50vh" }}
+                      title="walking"
+                      image={elt.img}
+                    />
                     <CardContent>
                       <Typography
                         gutterBottom
                         variant="headline"
                         component="h3"
                       >
-                      {elt.name.toUpperCase()}
+                        {elt.name.toUpperCase()}
                       </Typography>
                     </CardContent>
-                      
-                  
                   </Paper>
                 </Grid>
-          )) : <Grid item
-            style={{ textAlign: "center" }}
-            xs={12}>
-            <p>Loading in progress...</p>
-            <img src="https://media.giphy.com/media/CTkk4VzNdmZMI/giphy.gif" alt="loader" />
-          </Grid>}
-              </Grid>
-      </div>;
+              ))
+          ) : (
+            <Grid item style={{ textAlign: "center" }} xs={12}>
+              <p>Loading in progress...</p>
+              <img
+                src="https://media.giphy.com/media/CTkk4VzNdmZMI/giphy.gif"
+                alt="loader"
+              />
+            </Grid>
+          )}
+        </Grid>
+        <Grid style={{ padding: 40 }}>
+          <Button variant="contained" color="primary" onClick={this.logout}>
+            Log out
+          </Button>
+        </Grid>
+      </div>
+    );
   }
 }
 
