@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, InputLabel, FormControl, Input } from "@material-ui/core";
+import { Button, InputLabel, FormControl, Input, FormHelperText } from "@material-ui/core";
 import { base } from "../configuration";
 import SwitchBtn from "./SwitchBtn";
 
@@ -9,8 +9,19 @@ class Add extends Component {
     this.state = {
       name: "",
       img: "",
+      open: false,
       access: this.props.user
     };
+    this.regexes = {
+      name: `^.{3,40}$`,
+      img: `(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|png)`
+    };
+
+    this.hidden = {
+      name: true,
+      img: true
+    };
+
     this.onChange = this.onChange.bind(this);
     this.handleSwitch = this.handleSwitch.bind(this);
   }
@@ -21,6 +32,11 @@ class Add extends Component {
 
     //on met à jour le state quand on entre des données
     this.setState({ [idChange]: e.target.value });
+
+    const regex = new RegExp(this.regexes[idChange], "i");
+    regex.test(e.target.value)
+      ? (this.hidden[idChange] = true)
+      : (this.hidden[idChange] = false);
   };
 
   onSubmit = e => {
@@ -67,11 +83,25 @@ class Add extends Component {
               fontWeight: "bolder",
               backgroundColor: "rgba(255,255,255,0.4)"
             }}
+            error={!this.hidden.name}
             id="name"
             onChange={this.onChange}
             value={this.state.name}
           />
+          <FormHelperText
+            style={{
+              color: "black",
+              fontSize: "20",
+              fontWeight: "bolder",
+              backgroundColor: "rgba(255,255,255,0.4)"
+            }}
+            hidden={this.hidden.name}
+            id="nom-error-text"
+          >
+            Too short.
+              </FormHelperText>
         </FormControl>
+
 
         <FormControl fullWidth>
           <InputLabel
@@ -92,11 +122,24 @@ class Add extends Component {
               fontWeight: "bolder",
               backgroundColor: "rgba(255,255,255,0.4)"
             }}
+            error={this.state.img}
             id="img"
             type="text"
             onChange={this.onChange}
             value={this.state.img}
           />
+          <FormHelperText
+            style={{
+              color: "black",
+              fontSize: "20",
+              fontWeight: "bolder",
+              backgroundColor: "rgba(255,255,255,0.4)"
+            }}
+            hidden={this.hidden.img}
+            id="nom-error-text"
+          >
+            Wrong link.
+              </FormHelperText>
         </FormControl>
         <SwitchBtn handleSwitch={this.handleSwitch} />
         <Button
