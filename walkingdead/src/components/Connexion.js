@@ -9,9 +9,7 @@ import {
   InputAdornment,
   IconButton
 } from "@material-ui/core";
-// //import de firebase
-// import { auth, base } from "../../firebase";
-// import Input from "react-validation/build/input";
+
 //import pour les icones
 import MailOutline from "@material-ui/icons/MailOutline";
 import LockOutline from "@material-ui/icons/LockOutline";
@@ -38,6 +36,7 @@ class Connexion extends Component {
       showPasswordOne: false,
       open: false
     };
+    this.soumission = false;
 
     //définition des regex
     this.regexes = {
@@ -100,9 +99,12 @@ class Connexion extends Component {
   };
 
   render() {
+    const stateArray = Object.values(this.state);
+    const hiddenArray = Object.values(this.hidden);
     return (
       <div>
         <h2>Log in...</h2>
+        <br/>
         <form>
           <div style={{ padding: 20 }}>
             <FormControl fullWidth>
@@ -118,6 +120,7 @@ class Connexion extends Component {
                 Ton email
               </InputLabel>
               <Input
+                error={!this.hidden.email}
                 style={{
                   color: "black",
                   fontSize: "20",
@@ -160,6 +163,7 @@ class Connexion extends Component {
                 Ton mot de passe
               </InputLabel>
               <Input
+                error={!this.hidden.password}
                 style={{
                   color: "black",
                   fontSize: "20",
@@ -206,8 +210,14 @@ class Connexion extends Component {
                 Le mot de passe n'est pas valide car trop court.
               </FormHelperText>
             </FormControl>
+           <br/>
 
+            {stateArray.includes("") || hiddenArray.includes(false)
+              ? (this.soumission = true)
+              : (this.soumission = false)}
             <Button
+              style={{ marginTop: 20 }}
+              disabled={this.soumission}
               type="submit"
               variant="contained"
               color="primary"
@@ -224,7 +234,11 @@ class Connexion extends Component {
           autoHideDuration={4000}
           onClose={this.handleClose}
           ContentProps={{ "aria-describedby": "message-id" }}
-          message={<span id="message-id">Wrong information ! Do you sign in before?</span>}
+          message={
+            <span id="message-id">
+              Wrong information ! Do you sign in before?
+            </span>
+          }
         />
       </div>
     );

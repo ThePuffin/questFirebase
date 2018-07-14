@@ -19,7 +19,7 @@ import LockOutline from "@material-ui/icons/LockOutline";
 // //import pour la visibilité password
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {configuration} from "../configuration";
+import { configuration } from "../configuration";
 
 const styles = theme => ({
   root: {
@@ -105,9 +105,8 @@ class Inscription extends Component {
   };
 
   render() {
-    const stateArray = Object.values(this.state).slice(0, 5);
+    const stateArray = Object.values(this.state);
     const hiddenArray = Object.values(this.hidden);
-    // const {classes} = this.props;
 
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
@@ -125,6 +124,7 @@ class Inscription extends Component {
               Ton email
             </InputLabel>
             <Input
+              error={!this.hidden.email}
               style={{
                 color: "black",
                 fontSize: "20",
@@ -167,6 +167,7 @@ class Inscription extends Component {
               Ton mot de passe
             </InputLabel>
             <Input
+              error={!this.hidden.password}
               style={{
                 color: "black",
                 fontSize: "20",
@@ -226,6 +227,7 @@ class Inscription extends Component {
               Répète ton mot de passe
             </InputLabel>
             <Input
+              error={!this.hidden.password}
               style={{
                 color: "black",
                 fontSize: "20",
@@ -283,6 +285,7 @@ class Inscription extends Component {
             color="primary"
             margin="normal"
             onClick={this.signup}
+            style={{marginTop:20}}
           >
             Je m'inscris
           </Button>

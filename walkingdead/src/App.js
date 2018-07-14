@@ -6,7 +6,8 @@ import Intro from "./components/Intro";
 import Perso from "./components/Perso";
 import Connexion from "./components/Connexion";
 
-import {configuration} from "./configuration";
+import { configuration } from "./configuration";
+import Grid from "@material-ui/core/Grid";
 
 class App extends Component {
   constructor(props) {
@@ -53,12 +54,17 @@ class App extends Component {
         {this.state.user ? (
           <Perso user={this.state.user} />
         ) : (
-          <div>
-            <Connexion />
-
-            <img src={gif} className="giphy" alt="head" />
-            <Intro />
-          </div>
+          <Grid container>
+            <Grid item style={{ textAlign: "center" }} spacing={16} xs={6}>
+              <Connexion />
+            </Grid>
+            <Grid item style={{ textAlign: "center" }} spacing={16} xs={6}>
+              <Intro />
+            </Grid>
+            <Grid item style={{ textAlign: "center" }} xs={12}>
+              <img src={gif} className="giphy" alt="head" />
+            </Grid>
+          </Grid>
         )}
       </div>
     );
